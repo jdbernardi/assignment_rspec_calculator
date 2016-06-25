@@ -8,6 +8,7 @@ describe Calculator do
 
  let(:calc) { Calculator.new }
  let(:calc_s) { Calculator.new( "5" ) }
+ let(:calc_true) { Calculator.new( true )}
 
 
 	describe '#initialize' do
@@ -38,7 +39,7 @@ describe Calculator do
 
 		it 'creates #memory and sets to nil' do
 
-			expect( calc_s.instance_variable_get( :@memory )).to eq( nil)
+			expect( calc_s.instance_variable_get( :@memory )).to be_nil
 
 		end
 
@@ -212,7 +213,10 @@ describe Calculator do
 	end
 
 
-	#The sqrt method properly determines square roots for positive numbers, raises errors for negative inputs, returns integers for round roots or 2-digit decimals for non-round roots.
+
+
+
+
 	describe '#sqrt' do
 
 		it 'properly sqrt positive numbers' do
@@ -227,7 +231,81 @@ describe Calculator do
 
 		end
 
+		it 'returns an int for decimal values' do
+
+			expect( calc.sqrt( 4.2 )).to eq( 2.05 )
+
+		end
+
+		it 'returns a 2-digit decimal for non-round roots' do
+
+			expect( calc.sqrt( 10 )).to eq( 3.16 )
+
+		end
+
+
+	end #/sqrt
+
+
+
+	describe '#memory' do
+
+
+
+
+
+		it "should overwrite an object in memory storing the assigned value" do
+
+			calc.memory = "54"
+			expect(calc.memory).to eq("54")
+
+		end
+
+		it "should replace @memory with nil when returned" do
+
+			calc.memory = "54"
+
+			calc.memory
+
+			expect(calc.memory).to be_nil
+
+		end
+
+
+	end #/.memory
+
+
+	describe '#stringify' do
+
+
+		describe "#output" do
+
+			it "should return a string when @stringify is true" do
+
+
+				expect(calc_true.add(4,5)).to eq("9")
+
+
+			end
+
+
+			it "should return an int when @stringify is false" do
+
+
+				expect(calc.add(4,5)).to eq(9)
+
+
+			end
+
+
+		end
+
+
+
 
 	end
+
+
+
 
 end
